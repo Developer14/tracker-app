@@ -9,17 +9,13 @@ import { FolderPageRoutingModule } from './folder-routing.module';
 import { FolderPage } from './folder.page';
 import { GooleMapsComponent } from '../goole-maps/goole-maps.component';
 
-import { AgmCoreModule } from "@agm/core";
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    FolderPageRoutingModule,
-    AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyD33MbOGarKsyrFskv_xv4YFD2pAJNm5mc'
-    })
+    FolderPageRoutingModule
   ],
   declarations: [FolderPage,GooleMapsComponent]
 })

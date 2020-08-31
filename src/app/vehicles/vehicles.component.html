@@ -3,19 +3,21 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>{{ folder }}</ion-title>
+    <ion-title>Vehiculos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">{{ folder }}</ion-title>
+      <ion-title size="large">Vehiculos</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-   
   </div>
-  <app-goole-maps apiKey="AIzaSyD33MbOGarKsyrFskv_xv4YFD2pAJNm5mc"></app-goole-maps>
+
+  <ion-router-outlet id="main-content"></ion-router-outlet>
+
+
 </ion-content>
