@@ -14,7 +14,7 @@ const routes: Routes = [
     component: ListComponent
   },
   {
-    path: 'tracking',
+    path: 'tracking/:idVehicle',
     component: TrackingComponent
   },
   {

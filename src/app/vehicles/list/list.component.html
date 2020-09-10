@@ -9,24 +9,11 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  
-  <ion-card button="true">
-    <ion-item [routerLink]="['/vehicles/tracking']" routerDirection="forward">
+    
+  <ion-card button="true" *ngFor="let vehicle of vehicles">
+    <ion-item [routerLink]="['/vehicles/tracking', vehicle.id]" routerDirection="forward">
       <ion-icon name="car" slot="start"></ion-icon>
-      <ion-label>Vehiculo 654</ion-label>
-    </ion-item>
-  </ion-card>
-  <ion-card button="true">
-    <ion-item [routerLink]="['/vehicles/tracking']" routerDirection="forward">
-      <ion-icon name="car" slot="start"></ion-icon>
-      <ion-label>Vehiculo 105</ion-label>
-    </ion-item>
-  </ion-card>
-  <ion-card button="true">
-    <ion-item [routerLink]="['/vehicles/tracking']" routerDirection="forward">
-      <ion-icon name="car" slot="start"></ion-icon>
-      <ion-label>Vehiculo 379</ion-label>
+      <ion-label>{{vehicle.vehicleAlias}}</ion-label>
     </ion-item>
   </ion-card>
   
