@@ -1,4 +1,3 @@
-
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-buttons slot="start">
@@ -9,12 +8,38 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  <agm-map [latitude]="-33.4336995" [longitude]="-70.646886" [zoom]="15">
-    <agm-marker
-        [latitude]="-33.4336995"
-        [longitude]="-70.646886">
-    </agm-marker>
-  </agm-map>
+
+  <div style="width: 100%; height: 100%;">
+
+    <div style="position: absolute; top: 55px; width: 100%;">
+      <ion-card button="false">
+        <ion-item>
+          <ion-icon name="car" slot="start"></ion-icon>
+          <ion-label>
+            <ion-text>
+              <div class="details-box">
+                <p><strong>{{vehicle.vehicleAlias}}</strong></p>
+                <p>Lat: {{coordinate.latitude}} / Lon: {{coordinate.longitude}}</p>
+                <p>Fecha: {{coordinate.dateTime}} / Utc: {{coordinate.utc}}</p>
+              </div>
+            </ion-text>
+          </ion-label>
+        </ion-item>
+      </ion-card>
+    </div>
+
+    <agm-map #map 
+        [zoom]="mapZoom" 
+        [latitude]="coordinate.latitude" 
+        [longitude]="coordinate.longitude"
+        [disableDefaultUI]="true">
+
+      <agm-marker [latitude]="coordinate.latitude" [longitude]="coordinate.longitude" [iconUrl]="markerIconUrl"></agm-marker>
+
+    </agm-map>
+
+  </div>
+
+
 
 </ion-content>

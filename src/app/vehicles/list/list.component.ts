@@ -14,10 +14,9 @@ export class ListComponent implements OnInit {
   constructor(private service : VehicleService) { }
 
   ngOnInit() {
-    this.service.getVehicle()
-    .subscribe(data =>{ 
+    this.service.getVehicles().subscribe((data: Vehicle[]) =>{ 
       this.vehicles = data;
-    })
+    });
   }
 
 }

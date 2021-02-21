@@ -4,4 +4,5 @@ export class Vehicle{
     imei: string;
     ownerRut: string;
     ownerName: string;
+    protocol: string;
 }
