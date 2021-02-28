@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button [routerLink]="['/vehicles/list']" routerDirection="back"></ion-back-button>
     </ion-buttons>
-    <!-- <ion-title>Back Button</ion-title> -->
+    <ion-title>{{vehicle.vehicleAlias}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -18,7 +18,7 @@
           <ion-label>
             <ion-text>
               <div class="details-box">
-                <p><strong>{{vehicle.vehicleAlias}}</strong></p>
+                <p><strong>Detalles</strong></p>
                 <p>Lat: {{coordinate.latitude}} / Lon: {{coordinate.longitude}}</p>
                 <p>Fecha: {{coordinate.dateTime}} / Utc: {{coordinate.utc}}</p>
               </div>

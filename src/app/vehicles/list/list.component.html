@@ -1,5 +1,5 @@
 
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -10,10 +10,14 @@
 
 <ion-content [fullscreen]="true">
 
-  <ion-card button="true" *ngFor="let vehicle of vehicles">
-    <ion-item [routerLink]="['/vehicles/tracking', vehicle.imei]" routerDirection="forward">
+  <ion-card button="false" *ngFor="let vehicle of vehicles">
+    <ion-item [routerLink]="['/vehicles/tracking', vehicle.imei]" routerDirection="forward" lines="none" detail="true">
       <ion-icon name="car" slot="start"></ion-icon>
-      <ion-label>{{vehicle.vehicleAlias}}</ion-label>
+      <ion-label slot="start">
+        <ion-text>
+          {{vehicle.vehicleAlias}}
+        </ion-text>
+      </ion-label>
     </ion-item>
   </ion-card>
 
