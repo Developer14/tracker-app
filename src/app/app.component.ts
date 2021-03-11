@@ -70,7 +70,7 @@ export class AppComponent implements OnInit {
     PushNotifications.addListener(
       'registration',
       (token: PushNotificationToken) => {
-        alert('Push registration success, token: ' + token.value);
+        //alert('Push registration success, token: ' + token.value);
         this.registrationTokenService.registerToken(this.buildMbileRegistration(token.value)).subscribe(data=>{
           //alert('Push registration token registered.');
         });
