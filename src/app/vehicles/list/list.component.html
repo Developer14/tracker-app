@@ -10,6 +10,9 @@
 
 <ion-content [fullscreen]="true">
 
+  <!-- <ion-item>
+    <ion-button (click)="notification()">notification test</ion-button>
+  </ion-item> -->
   <ion-card button="false" *ngFor="let vehicle of vehicles">
     <ion-item [routerLink]="['/vehicles/tracking', vehicle.imei]" routerDirection="forward" lines="none" detail="true">
       <ion-icon name="car" slot="start"></ion-icon>

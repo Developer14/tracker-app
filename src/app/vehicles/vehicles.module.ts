@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { VehiclesRoutingModule } from './vehicles-routing.module';
-import { AgmCoreModule, GoogleMapsAPIWrapper, MarkerManager } from '@agm/core';
+import { AgmCoreModule } from '@agm/core';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { VehiclesComponent } from './vehicles.component';
-import { GooleMapsComponent } from '../goole-maps/goole-maps.component';
 import { ListComponent } from './list/list.component';
 import { TrackingComponent } from './tracking/tracking.component';
 import { InjectableRxStompConfig, RxStompService, rxStompServiceFactory } from '@stomp/ng2-stompjs';
@@ -51,7 +51,7 @@ const myRxStompConfig: InjectableRxStompConfig = {
       useFactory: rxStompServiceFactory,
       deps: [InjectableRxStompConfig]
     },
-    GoogleMapsAPIWrapper
+    Geolocation
   ]
 })
 export class VehiclesModule { }

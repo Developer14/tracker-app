@@ -1,13 +1,12 @@
 import { Component, OnInit, OnDestroy, ViewChild, AfterContentInit, AfterViewInit, NgZone, Inject, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { RxStompService } from '@stomp/ng2-stompjs';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { TrackerService } from 'src/app/service/tracker.service';
 import { Coordinate } from 'src/app/Model/coordinate.model';
-import { AgmMap, AgmMarker, GoogleMapsAPIWrapper, MarkerManager } from '@agm/core';
-import { LatLng, MarkerOptions } from '@ionic-native/google-maps';
-import { ActionSheetOptions } from '@capacitor/core';
-import { ActionSheetController } from '@ionic/angular';
+import { AgmMap } from '@agm/core';
+import { Marker } from '@ionic-native/google-maps';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation/ngx';
 import { Vehicle } from 'src/app/Model/vehicle.model';
 import { VehicleService } from 'src/app/service/vehicle.service';
 
@@ -28,15 +27,23 @@ export class TrackingComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('map', {read: AgmMap})
   map: AgmMap;
 
+  @ViewChild('vehicleMarker', {static: false, read: Marker})
+  vehicleMarker: Marker;
+
   mapZoom: number = 15;
   
   markerIconUrl: string = 'assets/pointer_24px.png'
+  personMarkerIconUrl: string = 'assets/person2_32px.png'
+
+  private geolocationWatcherSubscription: Subscription;
+  deviceGeoposition: Geoposition;
 
   constructor(
     private route: ActivatedRoute,
     private rxStompService: RxStompService,
     private trackerService: TrackerService,
-    private vehicleService: VehicleService
+    private vehicleService: VehicleService,
+    private geolocation: Geolocation
   ) { }
   
   ngOnInit() {
@@ -49,30 +56,44 @@ export class TrackingComponent implements OnInit, AfterViewInit, OnDestroy {
       this.trackerImei = params.get('idVehicle');
       this.vehicle = this.vehicleService.vehicles.find(vehicle=>vehicle.imei==this.trackerImei);
 
-      this.trackerService.getLastPosition(this.trackerImei).subscribe(coord=>{
-        if(coord){
-          this.coordinate = coord;
-        }
-        this.startSocketListener();
-      });
+      this.initVehicleTracking();
+
     });
+
+    this.initDeviceGeolocationWatcher();
 
   }
   
   ngAfterViewInit() {
-  
     this.map.zoomChange.subscribe(zoom=>{
       console.log('zoomChange');
       console.log(zoom);
       this.mapZoom = zoom;
     });
-        
   }
   
   ngOnDestroy(): void {
-    console.log('destruyendo componente...');
+    console.log('destroying tracking...');
     this.socketSubscription.unsubscribe();
+    this.geolocationWatcherSubscription.unsubscribe();
     this.stoptHeartbeatLoop();
+  }
+
+  private initVehicleTracking() {
+    this.trackerService.getLastPosition(this.trackerImei).subscribe(coord=>{
+      if(coord){
+        this.coordinate = coord;
+      }
+      this.startSocketListener();
+    });
+  }
+
+  private initDeviceGeolocationWatcher() {
+    this.geolocationWatcherSubscription = this.geolocation.watchPosition().subscribe((data:Geoposition)=>{
+      console.log('watchPosition data:');
+      console.log(data);
+      this.deviceGeoposition = data;
+    });
   }
 
   private startSocketListener() {
