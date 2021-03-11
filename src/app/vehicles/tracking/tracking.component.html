@@ -34,7 +34,20 @@
         [longitude]="coordinate.longitude"
         [disableDefaultUI]="true">
 
-      <agm-marker [latitude]="coordinate.latitude" [longitude]="coordinate.longitude" [iconUrl]="markerIconUrl"></agm-marker>
+      <agm-marker 
+          #vehicleMarker 
+          [latitude]="coordinate.latitude" 
+          [longitude]="coordinate.longitude" 
+          [iconUrl]="markerIconUrl">
+      </agm-marker>
+
+      <agm-marker 
+          *ngIf="deviceGeoposition" 
+          #deviceMarker 
+          [latitude]="deviceGeoposition.coords.latitude" 
+          [longitude]="deviceGeoposition.coords.longitude"
+          [iconUrl]="personMarkerIconUrl">
+      </agm-marker>
 
     </agm-map>
 
